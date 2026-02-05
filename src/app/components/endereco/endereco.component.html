@@ -1,0 +1,37 @@
+<div class="subformulario" [formGroup]="formGroup">
+  <h3>Endereço</h3>
+
+  <div class="campo">
+    <label for="rua">Rua:</label>
+    <input
+      id="rua"
+      type="text"
+      formControlName="rua"
+      placeholder="Digite o nome da rua"
+    />
+    <span
+      class="erro"
+      *ngIf="formGroup.get('rua')?.invalid && formGroup.get('rua')?.touched"
+    >
+      Campo obrigatório
+    </span>
+  </div>
+
+  <div class="campo">
+    <label for="cidade">Cidade:</label>
+    <input
+      id="cidade"
+      type="text"
+      formControlName="cidade"
+      placeholder="Digite a cidade"
+    />
+    <span
+      class="erro"
+      *ngIf="
+        formGroup.get('cidade')?.invalid && formGroup.get('cidade')?.touched
+      "
+    >
+      Campo obrigatório
+    </span>
+  </div>
+</div>

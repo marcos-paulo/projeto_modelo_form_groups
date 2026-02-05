@@ -1,0 +1,30 @@
+<div class="formulario-container">
+  <h2>Formulário Principal</h2>
+
+  <form [formGroup]="formularioPrincipal" (ngSubmit)="onSubmit()">
+    <!-- Componente Filho 1: Dados Pessoais -->
+    <app-dados-pessoais [formGroup]="dadosPessoaisGroup"></app-dados-pessoais>
+
+    <!-- Componente Filho 2: Endereço -->
+    <app-endereco [formGroup]="enderecoGroup"></app-endereco>
+
+    <!-- Componente Filho 3: Lista de Itens -->
+    <app-lista-itens [formGroup]="itensGroup1"></app-lista-itens>
+
+    <!-- Componente Filho 3: Lista de Itens -->
+    <app-lista-itens [formGroup]="itensGroup2"></app-lista-itens>
+
+    <!-- Botão de Ação no Componente Pai -->
+    <div class="botao-container">
+      <button type="submit" [disabled]="!formularioPrincipal.valid">
+        Enviar Formulário
+      </button>
+    </div>
+  </form>
+
+  <!-- Exibição dos Dados Submetidos -->
+  <div *ngIf="dadosSubmetidos" class="dados-submetidos">
+    <h3>Dados Submetidos:</h3>
+    <pre>{{ dadosSubmetidos | json }}</pre>
+  </div>
+</div>

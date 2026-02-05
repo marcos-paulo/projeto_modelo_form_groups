@@ -1,0 +1,43 @@
+<div class="subformulario" [formGroup]="formGroup">
+  <h3>Lista de Itens</h3>
+
+  <div class="campo">
+    <label for="descricao">Descrição da Lista:</label>
+    <input
+      id="descricao"
+      type="text"
+      formControlName="descricao"
+      placeholder="Digite uma descrição para esta lista"
+    />
+  </div>
+
+  <div class="adicionar-item">
+    <input
+      type="text"
+      [(ngModel)]="novoItem"
+      [ngModelOptions]="{ standalone: true }"
+      placeholder="Digite um item"
+      (keyup.enter)="adicionarItem()"
+    />
+    <button
+      type="button"
+      (click)="adicionarItem()"
+      [disabled]="!novoItem.trim()"
+    >
+      Adicionar
+    </button>
+  </div>
+
+  <div class="lista" *ngIf="listaArray.length > 0">
+    <div class="item" *ngFor="let item of listaArray.controls; let i = index">
+      <span class="item-texto">{{ item.value }}</span>
+      <button type="button" class="btn-remover" (click)="removerItem(i)">
+        ×
+      </button>
+    </div>
+  </div>
+
+  <div class="info" *ngIf="listaArray.length === 0">
+    <p>Nenhum item adicionado ainda.</p>
+  </div>
+</div>
