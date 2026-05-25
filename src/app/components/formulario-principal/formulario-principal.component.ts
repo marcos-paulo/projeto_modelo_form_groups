@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { DadoLinha } from '../../models/linha-tabela.model';
 
 @Component({
   selector: 'app-formulario-principal',
@@ -10,17 +11,19 @@ export class FormularioPrincipalComponent implements OnInit {
   formularioPrincipal!: FormGroup;
   dadosSubmetidos: any = null;
 
+  readonly dadosTabela: DadoLinha[] = [
+    { data: new Date('2024-01-15'), campo: 'Item inicial A', categoria: 'Categoria A', status: 'Ativo' },
+    { data: new Date('2024-03-22'), campo: 'Item inicial B', categoria: 'Categoria B', status: 'Inativo' },
+    { data: null,                   campo: 'Item inicial C', categoria: 'Categoria C', status: 'Pendente' },
+  ];
+
   constructor(private fb: FormBuilder) {}
 
-  ngOnInit(): void {
-    this.formularioPrincipal = this.fb.group({
+  get generateForm() {
+    return this.fb.group({
       dadosPessoais: this.fb.group({
         nome: ['', Validators.required],
         cpf: ['', Validators.required],
-      }),
-      endereco: this.fb.group({
-        rua: ['', Validators.required],
-        cidade: ['', Validators.required],
       }),
       itens1: this.fb.group({
         descricao: ['', Validators.required],
@@ -28,13 +31,15 @@ export class FormularioPrincipalComponent implements OnInit {
           return a.value.length > 0 ? null : { required: true };
         }),
       }),
-      itens2: this.fb.group({
-        descricao: ['', Validators.required],
-        lista: this.fb.array<string>([], (a) => {
-          return a.value.length > 0 ? null : { required: true };
-        }),
+      tabelaItens: this.fb.group({
+        linhas: this.fb.array([]),
       }),
+      tabelaItens2: this.fb.array([]),
     });
+  }
+
+  ngOnInit(): void {
+    this.formularioPrincipal = this.generateForm;
   }
 
   onSubmit(): void {
@@ -50,15 +55,15 @@ export class FormularioPrincipalComponent implements OnInit {
     return this.formularioPrincipal.get('dadosPessoais') as FormGroup;
   }
 
-  get enderecoGroup(): FormGroup {
-    return this.formularioPrincipal.get('endereco') as FormGroup;
-  }
-
   get itensGroup1(): FormGroup {
     return this.formularioPrincipal.get('itens1') as FormGroup;
   }
 
-  get itensGroup2(): FormGroup {
-    return this.formularioPrincipal.get('itens2') as FormGroup;
+  get tabelaItensGroup(): FormGroup {
+    return this.formularioPrincipal.get('tabelaItens') as FormGroup;
+  }
+
+  get tabelaItens2Array(): FormArray {
+    return this.formularioPrincipal.get('tabelaItens2') as FormArray;
   }
 }

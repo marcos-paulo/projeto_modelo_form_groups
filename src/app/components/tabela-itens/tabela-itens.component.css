@@ -1,0 +1,39 @@
+.tabela-container {
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+table {
+  width: 100%;
+}
+
+.campo-tabela {
+  width: 100%;
+  min-width: 160px;
+}
+
+.acoes {
+  margin-top: 12px;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  font-weight: 500;
+}
+
+.badge-ativo {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.badge-inativo {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.badge-pendente {
+  background-color: #fff8e1;
+  color: #f57f17;
+}

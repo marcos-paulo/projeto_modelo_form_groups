@@ -1,0 +1,78 @@
+<div class="tabela-container" [formGroup]="formGroup">
+  <h3>Tabela de Itens</h3>
+
+  <div formArrayName="linhas">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z2">
+      <!-- Coluna: Data (reactive form) -->
+      <ng-container matColumnDef="data">
+        <th mat-header-cell *matHeaderCellDef>Data</th>
+        <td mat-cell *matCellDef="let linha">
+          <div [formGroupName]="linha.index">
+            <mat-form-field appearance="outline" class="campo-tabela">
+              <mat-label>Data</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="data" />
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="getLinha(linha.index).get('data')?.invalid">
+                Campo obrigatório
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Coluna: Campo de Input (reactive form) -->
+      <ng-container matColumnDef="campo">
+        <th mat-header-cell *matHeaderCellDef>Descrição</th>
+        <td mat-cell *matCellDef="let linha">
+          <div [formGroupName]="linha.index">
+            <mat-form-field appearance="outline" class="campo-tabela">
+              <mat-label>Descrição</mat-label>
+              <input
+                matInput
+                placeholder="Digite aqui..."
+                formControlName="campo"
+              />
+              <mat-error *ngIf="getLinha(linha.index).get('campo')?.invalid">
+                Campo obrigatório
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Coluna: Categoria (somente visualização) -->
+      <ng-container matColumnDef="categoria">
+        <th mat-header-cell *matHeaderCellDef>Categoria</th>
+        <td mat-cell *matCellDef="let linha">{{ linha.categoria }}</td>
+      </ng-container>
+
+      <!-- Coluna: Status (somente visualização) -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let linha">
+          <span class="badge badge-{{ linha.status | lowercase }}">{{
+            linha.status
+          }}</span>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="colunas"></tr>
+      <tr mat-row *matRowDef="let row; columns: colunas"></tr>
+    </table>
+  </div>
+
+  <div class="acoes">
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      (click)="adicionarLinha()"
+    >
+      + Adicionar Linha
+    </button>
+  </div>
+</div>

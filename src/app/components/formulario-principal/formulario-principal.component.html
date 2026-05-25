@@ -1,18 +1,20 @@
 <div class="formulario-container">
   <h2>Formulário Principal</h2>
 
+  <!-- Formulario busca -->
+
   <form [formGroup]="formularioPrincipal" (ngSubmit)="onSubmit()">
     <!-- Componente Filho 1: Dados Pessoais -->
     <app-dados-pessoais [formGroup]="dadosPessoaisGroup"></app-dados-pessoais>
 
-    <!-- Componente Filho 2: Endereço -->
-    <app-endereco [formGroup]="enderecoGroup"></app-endereco>
-
     <!-- Componente Filho 3: Lista de Itens -->
     <app-lista-itens [formGroup]="itensGroup1"></app-lista-itens>
 
-    <!-- Componente Filho 3: Lista de Itens -->
-    <app-lista-itens [formGroup]="itensGroup2"></app-lista-itens>
+    <!-- Componente Filho 4: Tabela de Itens v1 (FormGroup wrapper) -->
+    <app-tabela-itens [formGroup]="tabelaItensGroup" [dados]="dadosTabela"></app-tabela-itens>
+
+    <!-- Componente Filho 5: Tabela de Itens v2 (FormArray direto) -->
+    <app-tabela-itens-v2 [linhas]="tabelaItens2Array" [dados]="dadosTabela"></app-tabela-itens-v2>
 
     <!-- Botão de Ação no Componente Pai -->
     <div class="botao-container">
